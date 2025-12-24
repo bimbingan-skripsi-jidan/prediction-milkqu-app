@@ -2,9 +2,18 @@ import streamlit as st
 import pandas as pd
 import time
 import pickle
+import jwt
 from streamlit_option_menu import option_menu
 from streamlit.components.v1 import html
 from sqlalchemy import text
+from streamlit_oauth import OAuth2Component
+
+# --- Google OAuth Configuration ---
+GOOGLE_CLIENT_ID = st.secrets.get("google_oauth", {}).get("client_id", "")
+GOOGLE_CLIENT_SECRET = st.secrets.get("google_oauth", {}).get("client_secret", "")
+REDIRECT_URI = st.secrets.get("google_oauth", {}).get("redirect_uri", "http://localhost:8501")
+AUTHORIZE_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth"
+TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token"
 
 # --- Streamlit Page Config ---
 st.set_page_config(
@@ -161,7 +170,8 @@ def main():
         unsafe_allow_html=True,
     )
 
-    st.button("Log in with Google", on_click=st.login)
+    # Render OAuth button for Docker/self-hosted
+    render_oauth_button()
     st.markdown("<hr style='border: 1px solid #2c3854;'>", unsafe_allow_html=True)
 
 
@@ -328,19 +338,67 @@ tilt_effect = """
 <br/>
 """
 
-# Helper function to check if user is logged in
+# --- Google OAuth Login Functions ---
+def init_session_state():
+    """Initialize session state for OAuth."""
+    if "user_info" not in st.session_state:
+        st.session_state.user_info = None
+
+def logout():
+    """Clear session and logout user."""
+    st.session_state.user_info = None
+    st.rerun()
+
 def is_user_logged_in():
-    """Check if user is logged in, with fallback for different Streamlit versions/environments."""
-    try:
-        # Try the new attribute first (Streamlit Community Cloud)
-        if hasattr(st.experimental_user, 'is_logged_in'):
-            return st.experimental_user.is_logged_in
-        # Fallback: check if user has an email (indicates logged in)
-        if hasattr(st.experimental_user, 'email') and st.experimental_user.email:
-            return True
+    """Check if user is logged in via OAuth."""
+    init_session_state()
+    return st.session_state.user_info is not None
+
+def get_user_name():
+    """Get logged in user's name."""
+    if st.session_state.user_info:
+        return st.session_state.user_info.get("name", st.session_state.user_info.get("email", "User"))
+    return "User"
+
+def render_oauth_button():
+    """Render Google OAuth login button and handle authentication."""
+    if GOOGLE_CLIENT_ID == "" or GOOGLE_CLIENT_SECRET == "":
+        st.error("⚠️ Google OAuth belum dikonfigurasi. Silakan tambahkan `client_id` dan `client_secret` di `.streamlit/secrets.toml`")
+        st.code("""
+[google_oauth]
+client_id = "YOUR_CLIENT_ID"
+client_secret = "YOUR_CLIENT_SECRET"
+redirect_uri = "http://localhost:8501"
+        """, language="toml")
         return False
-    except Exception:
-        return False
+    
+    oauth2 = OAuth2Component(
+        GOOGLE_CLIENT_ID,
+        GOOGLE_CLIENT_SECRET,
+        AUTHORIZE_ENDPOINT,
+        TOKEN_ENDPOINT,
+        TOKEN_ENDPOINT,
+    )
+    
+    result = oauth2.authorize_button(
+        "🔐 Log in with Google",
+        redirect_uri=REDIRECT_URI,
+        scope="openid email profile",
+    )
+    
+    if result and "token" in result:
+        try:
+            id_token = result["token"]["id_token"]
+            user_info = jwt.decode(id_token, options={"verify_signature": False})
+            st.session_state.user_info = user_info
+            st.rerun()
+        except Exception as e:
+            st.error(f"Login failed: {str(e)}")
+    
+    return False
+
+# Initialize session state
+init_session_state()
 
 # CORE
 if not is_user_logged_in():
@@ -425,10 +483,9 @@ else:
             unsafe_allow_html=True,
         )
 
-        st.button("Log out", on_click=st.logout)
+        st.button("Log out", on_click=logout)
         st.markdown("<hr style='border: 1px solid #2c3854;'>", unsafe_allow_html=True)
-        user_name = getattr(st.experimental_user, 'name', None) or getattr(st.experimental_user, 'email', 'User')
-        st.success(f"Welcome to MilkQu App, {user_name}!")
+        st.success(f"Welcome to MilkQu App, {get_user_name()}!")
 
     if menu == "Documentations":
 
