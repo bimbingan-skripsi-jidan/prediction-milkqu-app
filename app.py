@@ -328,8 +328,22 @@ tilt_effect = """
 <br/>
 """
 
+# Helper function to check if user is logged in
+def is_user_logged_in():
+    """Check if user is logged in, with fallback for different Streamlit versions/environments."""
+    try:
+        # Try the new attribute first (Streamlit Community Cloud)
+        if hasattr(st.experimental_user, 'is_logged_in'):
+            return st.experimental_user.is_logged_in
+        # Fallback: check if user has an email (indicates logged in)
+        if hasattr(st.experimental_user, 'email') and st.experimental_user.email:
+            return True
+        return False
+    except Exception:
+        return False
+
 # CORE
-if not st.experimental_user.is_logged_in:
+if not is_user_logged_in():
     main()
 else:
 
@@ -413,7 +427,8 @@ else:
 
         st.button("Log out", on_click=st.logout)
         st.markdown("<hr style='border: 1px solid #2c3854;'>", unsafe_allow_html=True)
-        st.success(f"Welcome to MilkQu App, {st.experimental_user.name}!")
+        user_name = getattr(st.experimental_user, 'name', None) or getattr(st.experimental_user, 'email', 'User')
+        st.success(f"Welcome to MilkQu App, {user_name}!")
 
     if menu == "Documentations":
 
