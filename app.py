@@ -238,10 +238,8 @@ style_configurations = """
     }
     
     h1 {
-        background: linear-gradient(135deg, var(--milk-primary) 0%, var(--milk-primary-light) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #4AAED9 !important;
+        -webkit-text-fill-color: #4AAED9 !important;
     }
     
     p, li, span, label, div {
@@ -269,17 +267,17 @@ style_configurations = """
     
     /* ─── BUTTONS ───────────────────────────────────────────────────── */
     .stButton > button {
-        background: linear-gradient(135deg, var(--milk-primary) 0%, var(--milk-primary-light) 100%);
-        color: #0C1222 !important;
-        border: none;
-        border-radius: 12px;
-        padding: 0.75rem 2rem;
-        font-size: 1rem;
-        font-weight: 600;
-        box-shadow: 0 4px 15px rgba(74, 174, 217, 0.4);
-        transition: all 0.3s ease;
-        width: auto;
-        min-width: 180px;
+        background: linear-gradient(135deg, #4AAED9 0%, #3B9BC9 100%) !important;
+        color: #FFFFFF !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0.75rem 2rem !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 15px rgba(74, 174, 217, 0.4) !important;
+        transition: all 0.3s ease !important;
+        width: auto !important;
+        min-width: 180px !important;
     }
     
     .stButton > button:hover {
@@ -732,14 +730,26 @@ redirect_uri = "http://localhost:8501"
         TOKEN_ENDPOINT,
     )
     
-    # Center the OAuth button
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        result = oauth2.authorize_button(
-            "🔐 Log in with Google",
-            redirect_uri=REDIRECT_URI,
-            scope="openid email profile",
-        )
+    # Add CSS to center the OAuth button
+    st.markdown("""
+        <style>
+        /* Center OAuth button container */
+        iframe[title="streamlit_oauth.authorize_button"] {
+            display: block !important;
+            margin: 0 auto !important;
+        }
+        div[data-testid="stVerticalBlock"] > div:has(iframe[title="streamlit_oauth.authorize_button"]) {
+            display: flex !important;
+            justify-content: center !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    result = oauth2.authorize_button(
+        "🔐 Log in with Google",
+        redirect_uri=REDIRECT_URI,
+        scope="openid email profile",
+    )
     
     if result and "token" in result:
         try:
@@ -907,7 +917,7 @@ else:
 
     if menu == "Documentations":
 
-        # ─── FUN PAGE HEADER ────────────────────────────────────────────────────────────────
+        # ─── PAGE HEADER ────────────────────────────────────────────────────────────────
         st.markdown(
             """
             <div style="
@@ -918,17 +928,14 @@ else:
                 border: 2px solid rgba(251, 191, 36, 0.3);
                 margin-bottom: 24px;
             ">
-                <div style="font-size: 2.5rem; margin-bottom: 8px;">�🥛🐐</div>
                 <h1 style="
-                    font-size: 2.2rem;
+                    font-size: 2rem;
                     font-weight: 800;
-                    background: linear-gradient(135deg, #FBBF24 0%, #22C55E 50%, #4AAED9 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    margin: 0;
-                ">Selamat Datang di MilkQu! 🎉</h1>
-                <p style="color: #FCD34D !important; font-size: 1rem; margin-top: 10px; font-weight: 500;">
-                    Yuk kenali cara kerja aplikasi prediksi susu paling seru! 🚀
+                    color: #22C55E !important;
+                    margin: 0 0 8px 0;
+                ">Selamat Datang di MilkQu!</h1>
+                <p style="color: #FCD34D !important; font-size: 1rem; margin: 0; font-weight: 500;">
+                    Panduan lengkap cara menggunakan aplikasi prediksi kualitas susu
                 </p>
             </div>
             """,
@@ -939,145 +946,101 @@ else:
         st.markdown(
             """
             <div style="
-                background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(26, 35, 50, 0.6) 100%);
-                backdrop-filter: blur(20px);
+                background: rgba(26, 35, 50, 0.7);
                 border: 2px solid rgba(34, 197, 94, 0.3);
-                border-radius: 20px;
-                padding: 24px;
+                border-radius: 16px;
+                padding: 20px;
                 margin-bottom: 20px;
             ">
-                <h2 style="color: #22C55E !important; margin-top: 0; display: flex; align-items: center; gap: 12px; font-size: 1.4rem;">
-                    🐄 Apa itu MilkQu?
+                <h2 style="color: #22C55E !important; margin: 0 0 12px 0; font-size: 1.3rem;">
+                    Apa itu MilkQu?
                 </h2>
-                <p style="color: #E5E7EB !important; line-height: 1.9; margin: 0; font-size: 1rem;">
-                    <strong style="color: #FBBF24 !important;">MilkQu</strong> adalah teman pintarmu untuk mengecek kualitas susu! 🧠✨
+                <p style="color: #E5E7EB !important; line-height: 1.8; margin: 0; font-size: 0.95rem;">
+                    <strong style="color: #FBBF24;">MilkQu</strong> adalah aplikasi web untuk memprediksi kualitas susu menggunakan teknologi Machine Learning.
                     <br><br>
-                    Dibuat dengan <strong style="color: #F472B6;">❤️ teknologi AI canggih</strong>, MilkQu bisa memprediksi apakah susu dari 
-                    <span style="color: #FBBF24;">🐄 sapi</span>, 
-                    <span style="color: #A78BFA;">🐐 kambing</span>, atau 
-                    <span style="color: #F9A8D4;">🐑 domba</span> 
-                    kamu berkualitas <strong style="color: #22C55E;">High ⭐</strong>, <strong style="color: #FBBF24;">Medium 👍</strong>, atau <strong style="color: #EF4444;">Low ⚠️</strong>!
+                    Cukup masukkan 7 parameter susu, dan sistem akan menampilkan hasil prediksi: 
+                    <strong style="color: #22C55E;">High</strong>, 
+                    <strong style="color: #FBBF24;">Medium</strong>, atau 
+                    <strong style="color: #EF4444;">Low</strong>.
                 </p>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # ─── FUN FEATURES ────────────────────────────────────────────────────────────
-        st.markdown(
-            """
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px;">
-                <div style="
-                    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
-                    border: 2px solid rgba(34, 197, 94, 0.4);
-                    border-radius: 16px;
-                    padding: 20px;
-                    text-align: center;
-                    transition: transform 0.3s ease;
-                ">
-                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
-                    <div style="color: #22C55E !important; font-weight: 700; font-size: 1rem;">Super Akurat!</div>
-                    <p style="color: #D1FAE5 !important; font-size: 0.85rem; margin-top: 8px;">AI pintar yang nggak pernah salah 🎯</p>
-                </div>
-                <div style="
-                    background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
-                    border: 2px solid rgba(251, 191, 36, 0.4);
-                    border-radius: 16px;
-                    padding: 20px;
-                    text-align: center;
-                    transition: transform 0.3s ease;
-                ">
-                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
-                    <div style="color: #FBBF24 !important; font-weight: 700; font-size: 1rem;">Kilat Cepat!</div>
-                    <p style="color: #FEF3C7 !important; font-size: 0.85rem; margin-top: 8px;">Hasil prediksi dalam 3 detik ⚡</p>
-                </div>
-                <div style="
-                    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
-                    border: 2px solid rgba(168, 85, 247, 0.4);
-                    border-radius: 16px;
-                    padding: 20px;
-                    text-align: center;
-                    transition: transform 0.3s ease;
-                ">
-                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
-                    <div style="color: #A78BFA !important; font-weight: 700; font-size: 1rem;">Simpan Semua!</div>
-                    <p style="color: #EDE9FE !important; font-size: 0.85rem; margin-top: 8px;">Riwayat tersimpan rapi 📚</p>
-                </div>
+        # ─── FEATURES ────────────────────────────────────────────────────────────
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("""
+            <div style="background: rgba(34, 197, 94, 0.15); border: 2px solid rgba(34, 197, 94, 0.4); border-radius: 12px; padding: 16px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#x2705;</div>
+                <div style="color: #22C55E !important; font-weight: 700;">Super Akurat</div>
+                <p style="color: #D1FAE5 !important; font-size: 0.8rem; margin-top: 6px;">AI yang presisi tinggi</p>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("""
+            <div style="background: rgba(251, 191, 36, 0.15); border: 2px solid rgba(251, 191, 36, 0.4); border-radius: 12px; padding: 16px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#x26A1;</div>
+                <div style="color: #FBBF24 !important; font-weight: 700;">Kilat Cepat</div>
+                <p style="color: #FEF3C7 !important; font-size: 0.8rem; margin-top: 6px;">Hasil dalam 3 detik</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        with col3:
+            st.markdown("""
+            <div style="background: rgba(168, 85, 247, 0.15); border: 2px solid rgba(168, 85, 247, 0.4); border-radius: 12px; padding: 16px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">&#x1F4BE;</div>
+                <div style="color: #A78BFA !important; font-weight: 700;">Simpan Riwayat</div>
+                <p style="color: #EDE9FE !important; font-size: 0.8rem; margin-top: 6px;">Data tersimpan rapi</p>
+            </div>
+            """, unsafe_allow_html=True)
 
         # ─── ABOUT DATASETS ────────────────────────────────────────────────────────────
-        with st.expander("� Tentang Dataset Susu (klik untuk buka)"):
+        with st.expander("Tentang Dataset Susu"):
             st.markdown("""
-### 📊 Data dari 1000+ Sampel Susu Asli!
+### Data dari 1000+ Sampel Susu
 
 | Parameter | Keterangan | Contoh |
 |-----------|------------|--------|
-| 🧪 **pH** | Tingkat keasaman | 6.0 - 7.0 |
-| 🌡️ **Suhu** | Temperatur susu | 34°C - 45°C |
-| 👅 **Rasa** | Normal (1) / Tidak (0) | 1 |
-| 👃 **Bau** | Segar (1) / Basi (0) | 1 |
-| 🧈 **Lemak** | Tinggi (1) / Rendah (0) | 1 |
-| 💧 **Kekeruhan** | Keruh (1) / Jernih (0) | 0 |
-| 🎨 **Warna** | Indeks warna | 240-260 |
+| **pH** | Tingkat keasaman | 6.0 - 7.0 |
+| **Suhu** | Temperatur susu | 34 - 45 C |
+| **Rasa** | Normal (1) / Tidak (0) | 1 |
+| **Bau** | Segar (1) / Basi (0) | 1 |
+| **Lemak** | Tinggi (1) / Rendah (0) | 1 |
+| **Kekeruhan** | Keruh (1) / Jernih (0) | 0 |
+| **Warna** | Indeks warna | 240-260 |
 
-> 💡 **Tips:** Susu berkualitas tinggi biasanya memiliki pH 6.5-6.7 dan suhu penyimpanan 4-7°C!
+> **Tips:** Susu berkualitas tinggi memiliki pH 6.5-6.7 dan suhu 4-7 C
             """)
 
         # ─── HOW IT WORKS ──────────────────────────────────────────────────────────
         st.markdown(
             """
             <div style="
-                background: linear-gradient(135deg, rgba(74, 174, 217, 0.15) 0%, rgba(26, 35, 50, 0.7) 100%);
+                background: rgba(74, 174, 217, 0.1);
                 border: 2px solid rgba(74, 174, 217, 0.3);
-                border-radius: 20px;
-                padding: 24px;
+                border-radius: 16px;
+                padding: 20px;
                 margin: 20px 0;
             ">
-                <h2 style="color: #7DD3FC !important; margin-top: 0; display: flex; align-items: center; gap: 12px; font-size: 1.4rem;">
-                    🎮 Cara Pakai - Gampang Banget!
+                <h2 style="color: #7DD3FC !important; margin: 0 0 16px 0; font-size: 1.3rem;">
+                    Cara Pakai
                 </h2>
-                <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="
-                            min-width: 50px;
-                            height: 50px;
-                            background: linear-gradient(135deg, #22C55E 0%, #4ADE80 100%);
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 1.5rem;
-                        ">🐄</div>
-                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #22C55E;">Step 1:</strong> Masukkan nama & parameter susumu 📝</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="min-width: 36px; height: 36px; background: #22C55E; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">1</div>
+                        <p style="color: #E5E7EB !important; margin: 0;">Masukkan nama dan parameter susu</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="
-                            min-width: 50px;
-                            height: 50px;
-                            background: linear-gradient(135deg, #FBBF24 0%, #FCD34D 100%);
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 1.5rem;
-                        ">🐐</div>
-                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #FBBF24;">Step 2:</strong> Klik tombol Predict & tunggu AI bekerja 🤖</p>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="min-width: 36px; height: 36px; background: #FBBF24; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">2</div>
+                        <p style="color: #E5E7EB !important; margin: 0;">Klik tombol Predict dan tunggu AI bekerja</p>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <div style="
-                            min-width: 50px;
-                            height: 50px;
-                            background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-size: 1.5rem;
-                        ">🐑</div>
-                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #A78BFA;">Step 3:</strong> Lihat hasilnya: <span style="color: #22C55E;">High ⭐</span>, <span style="color: #FBBF24;">Medium 👍</span>, atau <span style="color: #EF4444;">Low ⚠️</span></p>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="min-width: 36px; height: 36px; background: #A78BFA; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">3</div>
+                        <p style="color: #E5E7EB !important; margin: 0;">Lihat hasil: <span style="color: #22C55E;">High</span>, <span style="color: #FBBF24;">Medium</span>, atau <span style="color: #EF4444;">Low</span></p>
                     </div>
                 </div>
             </div>
@@ -1085,18 +1048,13 @@ else:
             unsafe_allow_html=True,
         )
 
-        # ─── FUN FOOTER ───────────────────────────────────────────────────────────────────
+        # ─── FOOTER ───────────────────────────────────────────────────────────────────
         st.markdown("---")
         st.markdown(
             """
-            <div style="text-align: center; padding: 16px;">
-                <p style="color: #FBBF24 !important; font-size: 1.1rem; margin-bottom: 8px;">
-                    🐄🐐🐑 Terima kasih sudah menggunakan MilkQu! 🐑🐐🐄
-                </p>
-                <p style="color: #6B7280 !important; font-size: 0.85rem;">
-                    © 2025 MilkQu • Made with 💚 for milk lovers
-                </p>
-            </div>
+            <p style="text-align: center; color: #6B7280 !important; font-size: 0.85rem;">
+                2025 MilkQu - Made with love for milk lovers
+            </p>
             """,
             unsafe_allow_html=True,
         )
@@ -1122,21 +1080,18 @@ else:
             <div style="
                 text-align: center;
                 padding: 20px 16px;
-                background: linear-gradient(135deg, rgba(74, 174, 217, 0.1) 0%, rgba(125, 211, 252, 0.05) 100%);
-                border-radius: 20px;
+                background: rgba(74, 174, 217, 0.1);
+                border-radius: 16px;
                 border: 1px solid rgba(74, 174, 217, 0.2);
                 margin-bottom: 16px;
             ">
-                <div style="font-size: 2rem; margin-bottom: 8px;">🧪</div>
                 <h1 style="
-                    font-size: 2.5rem;
+                    font-size: 2rem;
                     font-weight: 700;
-                    background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    margin: 0;
+                    color: #4AAED9 !important;
+                    margin: 0 0 8px 0;
                 ">Prediksi Kualitas Susu</h1>
-                <p style="color: #B8C5D3 !important; font-size: 1rem; margin-top: 8px;">
+                <p style="color: #B8C5D3 !important; font-size: 0.95rem; margin: 0;">
                     Masukkan parameter susu untuk melihat hasil prediksi kualitas
                 </p>
             </div>
@@ -1422,21 +1377,18 @@ else:
             <div style="
                 text-align: center;
                 padding: 20px 16px;
-                background: linear-gradient(135deg, rgba(74, 174, 217, 0.1) 0%, rgba(125, 211, 252, 0.05) 100%);
-                border-radius: 20px;
+                background: rgba(74, 174, 217, 0.1);
+                border-radius: 16px;
                 border: 1px solid rgba(74, 174, 217, 0.2);
                 margin-bottom: 16px;
             ">
-                <div style="font-size: 2rem; margin-bottom: 8px;">📈</div>
                 <h1 style="
-                    font-size: 2.5rem;
+                    font-size: 2rem;
                     font-weight: 700;
-                    background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    margin: 0;
+                    color: #4AAED9 !important;
+                    margin: 0 0 8px 0;
                 ">Riwayat Prediksi</h1>
-                <p style="color: #B8C5D3 !important; font-size: 1rem; margin-top: 8px;">
+                <p style="color: #B8C5D3 !important; font-size: 0.95rem; margin: 0;">
                     Lihat dan analisis hasil prediksi kualitas susu Anda
                 </p>
             </div>
