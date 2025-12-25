@@ -267,22 +267,23 @@ style_configurations = """
     
     /* ─── BUTTONS ───────────────────────────────────────────────────── */
     .stButton > button {
-        background: linear-gradient(135deg, #4AAED9 0%, #3B9BC9 100%) !important;
-        color: #FFFFFF !important;
-        border: none !important;
+        background: rgba(74, 174, 217, 0.1) !important;
+        color: #B8C5D3 !important;
+        border: 1px solid rgba(74, 174, 217, 0.3) !important;
         border-radius: 12px !important;
         padding: 0.75rem 2rem !important;
         font-size: 1rem !important;
         font-weight: 600 !important;
-        box-shadow: 0 4px 15px rgba(74, 174, 217, 0.4) !important;
+        box-shadow: none !important;
         transition: all 0.3s ease !important;
         width: auto !important;
         min-width: 180px !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(74, 174, 217, 0.5);
+        background: rgba(74, 174, 217, 0.2) !important;
+        border-color: rgba(74, 174, 217, 0.5) !important;
+        color: #F5F5F5 !important;
     }
     
     .stButton > button:active {
@@ -730,26 +731,47 @@ redirect_uri = "http://localhost:8501"
         TOKEN_ENDPOINT,
     )
     
-    # Add CSS to center the OAuth button
+    # Add CSS to center the OAuth button and remove dark backgrounds
     st.markdown("""
         <style>
-        /* Center OAuth button container */
+        /* Hide any extra elements around OAuth button */
+        div[data-testid="stVerticalBlock"] > div:has(iframe[title="streamlit_oauth.authorize_button"]) {
+            display: flex !important;
+            justify-content: center !important;
+            width: 100% !important;
+            background: transparent !important;
+        }
+        
+        /* Center the iframe itself */
         iframe[title="streamlit_oauth.authorize_button"] {
             display: block !important;
             margin: 0 auto !important;
+            background: transparent !important;
         }
-        div[data-testid="stVerticalBlock"] > div:has(iframe[title="streamlit_oauth.authorize_button"]) {
+        
+        /* Remove any dark sidebar/background that might appear */
+        div[data-testid="stHorizontalBlock"] {
+            background: transparent !important;
+        }
+        
+        /* Ensure the container doesn't have dark bg */
+        .element-container:has(iframe[title="streamlit_oauth.authorize_button"]) {
+            background: transparent !important;
+            width: 100% !important;
             display: flex !important;
             justify-content: center !important;
         }
         </style>
     """, unsafe_allow_html=True)
     
-    result = oauth2.authorize_button(
-        "🔐 Log in with Google",
-        redirect_uri=REDIRECT_URI,
-        scope="openid email profile",
-    )
+    # Center the button using columns
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col2:
+        result = oauth2.authorize_button(
+            "Log in with Google",
+            redirect_uri=REDIRECT_URI,
+            scope="openid email profile",
+        )
     
     if result and "token" in result:
         try:
@@ -1203,8 +1225,8 @@ else:
                 """
                 <style>
                 div[data-testid="stFormSubmitButton"] > button {
-                    background-color: #2f80ed;
-                    color: white;
+                    background-color: rgba(74, 174, 217, 0.1);
+                    color: #B8C5D3;
                     border: none;
                     font-weight: bold;
                     padding: 0.6rem 1.5rem;
@@ -1213,7 +1235,7 @@ else:
                     width: 100%;
                 }
                 div[data-testid="stFormSubmitButton"] > button:hover {
-                    background-color: #1c6fd1;
+                    background-color: rgba(74, 174, 217, 0.1);
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                 }
                 </style>
