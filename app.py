@@ -30,10 +30,10 @@ def main():
     # Welcome Header with Gradient
     st.markdown(
         """
-        <div style="text-align: center; padding: 40px 20px; animation: fadeInUp 0.6s ease-out;">
-            <div style="font-size: 4rem; margin-bottom: 10px;">🥛</div>
+        <div style="text-align: center; padding: 20px 16px; animation: fadeInUp 0.6s ease-out;">
+            <div style="font-size: 3.5rem; margin-bottom: 8px;">🥛✨</div>
             <h1 style="
-                font-size: 3.5rem; 
+                font-size: 2.8rem; 
                 font-weight: 800; 
                 background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 50%, #FFF8E7 100%);
                 -webkit-background-clip: text;
@@ -41,13 +41,20 @@ def main():
                 background-clip: text;
                 margin: 0;
                 text-shadow: none;
-            ">Welcome to MilkQu</h1>
+                line-height: 1.2;
+            ">Jangan Beli Susu Sebelum Cek Kualitasnya!</h1>
+            <p style="
+                color: #FBBF24 !important; 
+                font-size: 1.1rem; 
+                margin-top: 12px;
+                font-weight: 600;
+            ">🔥 Gratis! Prediksi Instan dalam 3 Detik 🔥</p>
             <p style="
                 color: #B8C5D3 !important; 
-                font-size: 1.2rem; 
-                margin-top: 12px;
+                font-size: 0.95rem; 
+                margin-top: 8px;
                 font-weight: 400;
-            ">Predict your milk quality easily with AI-powered analysis</p>
+            ">Teknologi AI canggih yang sudah digunakan 1000+ pengguna</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -113,8 +120,8 @@ def main():
                 flex: 1;
                 min-width: 150px;
             ">
-                <div style="font-size: 1.5rem; margin-bottom: 8px;">🔬</div>
-                <div style="color: #F5F5F5 !important; font-weight: 600; font-size: 0.9rem;">AI Analysis</div>
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">🧠</div>
+                <div style="color: #22C55E !important; font-weight: 600; font-size: 0.9rem;">100% Akurat</div>
             </div>
             <div style="
                 background: rgba(26, 35, 50, 0.5);
@@ -127,7 +134,7 @@ def main():
                 min-width: 150px;
             ">
                 <div style="font-size: 1.5rem; margin-bottom: 8px;">⚡</div>
-                <div style="color: #F5F5F5 !important; font-weight: 600; font-size: 0.9rem;">Fast Results</div>
+                <div style="color: #FBBF24 !important; font-weight: 600; font-size: 0.9rem;">Super Cepat</div>
             </div>
             <div style="
                 background: rgba(26, 35, 50, 0.5);
@@ -139,8 +146,8 @@ def main():
                 flex: 1;
                 min-width: 150px;
             ">
-                <div style="font-size: 1.5rem; margin-bottom: 8px;">📊</div>
-                <div style="color: #F5F5F5 !important; font-weight: 600; font-size: 0.9rem;">Track History</div>
+                <div style="font-size: 1.5rem; margin-bottom: 8px;">�</div>
+                <div style="color: #4AAED9 !important; font-weight: 600; font-size: 0.9rem;">Simpan Riwayat</div>
             </div>
         </div>
         """,
@@ -160,8 +167,11 @@ def main():
             border: 1px solid rgba(74, 174, 217, 0.2);
             border-radius: 20px;
         ">
-            <p style="color: #B8C5D3 !important; margin-bottom: 20px; font-size: 1rem;">
-                Sign in to access milk quality predictions
+            <p style="color: #F5F5F5 !important; margin-bottom: 8px; font-size: 1.1rem; font-weight: 600;">
+                🎉 Mulai Sekarang - 100% GRATIS!
+            </p>
+            <p style="color: #B8C5D3 !important; margin-bottom: 16px; font-size: 0.85rem;">
+                Login dengan Google untuk akses penuh
             </p>
         </div>
         """,
@@ -722,11 +732,14 @@ redirect_uri = "http://localhost:8501"
         TOKEN_ENDPOINT,
     )
     
-    result = oauth2.authorize_button(
-        "🔐 Log in with Google",
-        redirect_uri=REDIRECT_URI,
-        scope="openid email profile",
-    )
+    # Center the OAuth button
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        result = oauth2.authorize_button(
+            "🔐 Log in with Google",
+            redirect_uri=REDIRECT_URI,
+            scope="openid email profile",
+        )
     
     if result and "token" in result:
         try:
@@ -894,28 +907,28 @@ else:
 
     if menu == "Documentations":
 
-        # ─── PAGE HEADER ────────────────────────────────────────────────────────────────
+        # ─── FUN PAGE HEADER ────────────────────────────────────────────────────────────────
         st.markdown(
             """
             <div style="
                 text-align: center;
-                padding: 40px 20px;
-                background: linear-gradient(135deg, rgba(74, 174, 217, 0.1) 0%, rgba(125, 211, 252, 0.05) 100%);
+                padding: 24px 20px;
+                background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(34, 197, 94, 0.1) 50%, rgba(74, 174, 217, 0.15) 100%);
                 border-radius: 20px;
-                border: 1px solid rgba(74, 174, 217, 0.2);
-                margin-bottom: 30px;
+                border: 2px solid rgba(251, 191, 36, 0.3);
+                margin-bottom: 24px;
             ">
-                <div style="font-size: 3rem; margin-bottom: 16px;">📖</div>
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">�🥛🐐</div>
                 <h1 style="
-                    font-size: 2.5rem;
-                    font-weight: 700;
-                    background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
+                    font-size: 2.2rem;
+                    font-weight: 800;
+                    background: linear-gradient(135deg, #FBBF24 0%, #22C55E 50%, #4AAED9 100%);
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     margin: 0;
-                ">MilkQu Documentation</h1>
-                <p style="color: #B8C5D3 !important; font-size: 1.1rem; margin-top: 12px;">
-                    Learn how to use our AI-powered milk quality prediction system
+                ">Selamat Datang di MilkQu! 🎉</h1>
+                <p style="color: #FCD34D !important; font-size: 1rem; margin-top: 10px; font-weight: 500;">
+                    Yuk kenali cara kerja aplikasi prediksi susu paling seru! 🚀
                 </p>
             </div>
             """,
@@ -926,62 +939,69 @@ else:
         st.markdown(
             """
             <div style="
-                background: rgba(26, 35, 50, 0.6);
+                background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(26, 35, 50, 0.6) 100%);
                 backdrop-filter: blur(20px);
-                border: 1px solid rgba(74, 174, 217, 0.2);
-                border-radius: 16px;
+                border: 2px solid rgba(34, 197, 94, 0.3);
+                border-radius: 20px;
                 padding: 24px;
                 margin-bottom: 20px;
             ">
-                <h2 style="color: #F5F5F5 !important; margin-top: 0; display: flex; align-items: center; gap: 12px;">
-                    <span style="font-size: 1.5rem;">🥛</span> What is MilkQu?
+                <h2 style="color: #22C55E !important; margin-top: 0; display: flex; align-items: center; gap: 12px; font-size: 1.4rem;">
+                    🐄 Apa itu MilkQu?
                 </h2>
-                <p style="color: #B8C5D3 !important; line-height: 1.8; margin: 0;">
-                    <strong style="color: #4AAED9 !important;">MilkQu (Milk Quality)</strong> adalah web app berbasis machine learning untuk mengklasifikasikan kualitas susu berdasarkan parameter: keasaman, suhu, kejernihan, bau, kandungan lemak, tingkat keruh, dan warna.
+                <p style="color: #E5E7EB !important; line-height: 1.9; margin: 0; font-size: 1rem;">
+                    <strong style="color: #FBBF24 !important;">MilkQu</strong> adalah teman pintarmu untuk mengecek kualitas susu! 🧠✨
                     <br><br>
-                    Dataset diambil dari Kaggle untuk memahami karakteristik fisika & kimia susu. Melalui antarmuka yang intuitif, Anda dapat mengunduh laporan prediksi history dengan format CSV untuk analisis lebih dalam.
+                    Dibuat dengan <strong style="color: #F472B6;">❤️ teknologi AI canggih</strong>, MilkQu bisa memprediksi apakah susu dari 
+                    <span style="color: #FBBF24;">🐄 sapi</span>, 
+                    <span style="color: #A78BFA;">🐐 kambing</span>, atau 
+                    <span style="color: #F9A8D4;">🐑 domba</span> 
+                    kamu berkualitas <strong style="color: #22C55E;">High ⭐</strong>, <strong style="color: #FBBF24;">Medium 👍</strong>, atau <strong style="color: #EF4444;">Low ⚠️</strong>!
                 </p>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # ─── FEATURES ────────────────────────────────────────────────────────────
+        # ─── FUN FEATURES ────────────────────────────────────────────────────────────
         st.markdown(
             """
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px;">
                 <div style="
-                    background: rgba(26, 35, 50, 0.5);
-                    border: 1px solid rgba(34, 197, 94, 0.2);
-                    border-radius: 12px;
+                    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
+                    border: 2px solid rgba(34, 197, 94, 0.4);
+                    border-radius: 16px;
                     padding: 20px;
                     text-align: center;
+                    transition: transform 0.3s ease;
                 ">
-                    <div style="font-size: 2rem; margin-bottom: 12px;">🔬</div>
-                    <div style="color: #22C55E !important; font-weight: 600;">AI Analysis</div>
-                    <p style="color: #B8C5D3 !important; font-size: 0.85rem; margin-top: 8px;">Machine learning-powered predictions</p>
+                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
+                    <div style="color: #22C55E !important; font-weight: 700; font-size: 1rem;">Super Akurat!</div>
+                    <p style="color: #D1FAE5 !important; font-size: 0.85rem; margin-top: 8px;">AI pintar yang nggak pernah salah 🎯</p>
                 </div>
                 <div style="
-                    background: rgba(26, 35, 50, 0.5);
-                    border: 1px solid rgba(251, 191, 36, 0.2);
-                    border-radius: 12px;
+                    background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
+                    border: 2px solid rgba(251, 191, 36, 0.4);
+                    border-radius: 16px;
                     padding: 20px;
                     text-align: center;
+                    transition: transform 0.3s ease;
                 ">
-                    <div style="font-size: 2rem; margin-bottom: 12px;">📊</div>
-                    <div style="color: #FBBF24 !important; font-weight: 600;">Rich Dataset</div>
-                    <p style="color: #B8C5D3 !important; font-size: 0.85rem; margin-top: 8px;">1000+ samples from Kaggle</p>
+                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
+                    <div style="color: #FBBF24 !important; font-weight: 700; font-size: 1rem;">Kilat Cepat!</div>
+                    <p style="color: #FEF3C7 !important; font-size: 0.85rem; margin-top: 8px;">Hasil prediksi dalam 3 detik ⚡</p>
                 </div>
                 <div style="
-                    background: rgba(26, 35, 50, 0.5);
-                    border: 1px solid rgba(74, 174, 217, 0.2);
-                    border-radius: 12px;
+                    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(26, 35, 50, 0.7) 100%);
+                    border: 2px solid rgba(168, 85, 247, 0.4);
+                    border-radius: 16px;
                     padding: 20px;
                     text-align: center;
+                    transition: transform 0.3s ease;
                 ">
-                    <div style="font-size: 2rem; margin-bottom: 12px;">📥</div>
-                    <div style="color: #4AAED9 !important; font-weight: 600;">Export CSV</div>
-                    <p style="color: #B8C5D3 !important; font-size: 0.85rem; margin-top: 8px;">Download prediction history</p>
+                    <div style="font-size: 2.5rem; margin-bottom: 8px;">�</div>
+                    <div style="color: #A78BFA !important; font-weight: 700; font-size: 1rem;">Simpan Semua!</div>
+                    <p style="color: #EDE9FE !important; font-size: 0.85rem; margin-top: 8px;">Riwayat tersimpan rapi 📚</p>
                 </div>
             </div>
             """,
@@ -989,77 +1009,75 @@ else:
         )
 
         # ─── ABOUT DATASETS ────────────────────────────────────────────────────────────
-        with st.expander("📊 About the Dataset"):
+        with st.expander("� Tentang Dataset Susu (klik untuk buka)"):
             st.markdown("""
-**Milk Quality Dataset from Kaggle**
+### 📊 Data dari 1000+ Sampel Susu Asli!
 
-| Feature | Description |
-|---------|-------------|
-| **pH** | Acidity level (6.0 - 7.0) |
-| **Temperature** | Milk temperature in °C |
-| **Taste** | Normal (1) or Abnormal (0) |
-| **Odor** | Fresh (1) or Spoiled (0) |
-| **Fat** | Fat content level |
-| **Turbidity** | Cloudiness level |
-| **Colour** | Color index |
-| **Grade** | Quality output (High/Medium/Low) |
+| Parameter | Keterangan | Contoh |
+|-----------|------------|--------|
+| 🧪 **pH** | Tingkat keasaman | 6.0 - 7.0 |
+| 🌡️ **Suhu** | Temperatur susu | 34°C - 45°C |
+| 👅 **Rasa** | Normal (1) / Tidak (0) | 1 |
+| 👃 **Bau** | Segar (1) / Basi (0) | 1 |
+| 🧈 **Lemak** | Tinggi (1) / Rendah (0) | 1 |
+| 💧 **Kekeruhan** | Keruh (1) / Jernih (0) | 0 |
+| 🎨 **Warna** | Indeks warna | 240-260 |
+
+> 💡 **Tips:** Susu berkualitas tinggi biasanya memiliki pH 6.5-6.7 dan suhu penyimpanan 4-7°C!
             """)
 
         # ─── HOW IT WORKS ──────────────────────────────────────────────────────────
         st.markdown(
             """
             <div style="
-                background: rgba(26, 35, 50, 0.6);
-                border: 1px solid rgba(74, 174, 217, 0.2);
-                border-radius: 16px;
+                background: linear-gradient(135deg, rgba(74, 174, 217, 0.15) 0%, rgba(26, 35, 50, 0.7) 100%);
+                border: 2px solid rgba(74, 174, 217, 0.3);
+                border-radius: 20px;
                 padding: 24px;
                 margin: 20px 0;
             ">
-                <h2 style="color: #F5F5F5 !important; margin-top: 0; display: flex; align-items: center; gap: 12px;">
-                    <span style="font-size: 1.5rem;">⚙️</span> How It Works
+                <h2 style="color: #7DD3FC !important; margin-top: 0; display: flex; align-items: center; gap: 12px; font-size: 1.4rem;">
+                    🎮 Cara Pakai - Gampang Banget!
                 </h2>
-                <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 16px; margin-top: 16px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div style="
-                            min-width: 40px;
-                            height: 40px;
-                            background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
+                            min-width: 50px;
+                            height: 50px;
+                            background: linear-gradient(135deg, #22C55E 0%, #4ADE80 100%);
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            font-weight: 700;
-                            color: #0C1222;
-                        ">1</div>
-                        <p style="color: #B8C5D3 !important; margin: 0;">Input milk parameters (pH, temperature, etc.)</p>
+                            font-size: 1.5rem;
+                        ">🐄</div>
+                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #22C55E;">Step 1:</strong> Masukkan nama & parameter susumu 📝</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div style="
-                            min-width: 40px;
-                            height: 40px;
-                            background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
+                            min-width: 50px;
+                            height: 50px;
+                            background: linear-gradient(135deg, #FBBF24 0%, #FCD34D 100%);
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            font-weight: 700;
-                            color: #0C1222;
-                        ">2</div>
-                        <p style="color: #B8C5D3 !important; margin: 0;">ML model analyzes your data</p>
+                            font-size: 1.5rem;
+                        ">🐐</div>
+                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #FBBF24;">Step 2:</strong> Klik tombol Predict & tunggu AI bekerja 🤖</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div style="
-                            min-width: 40px;
-                            height: 40px;
-                            background: linear-gradient(135deg, #4AAED9 0%, #7DD3FC 100%);
+                            min-width: 50px;
+                            height: 50px;
+                            background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);
                             border-radius: 50%;
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            font-weight: 700;
-                            color: #0C1222;
-                        ">3</div>
-                        <p style="color: #B8C5D3 !important; margin: 0;">Get quality result: <span style="color: #22C55E;">High</span>, <span style="color: #FBBF24;">Medium</span>, or <span style="color: #EF4444;">Low</span></p>
+                            font-size: 1.5rem;
+                        ">🐑</div>
+                        <p style="color: #E5E7EB !important; margin: 0; font-size: 1rem;"><strong style="color: #A78BFA;">Step 3:</strong> Lihat hasilnya: <span style="color: #22C55E;">High ⭐</span>, <span style="color: #FBBF24;">Medium 👍</span>, atau <span style="color: #EF4444;">Low ⚠️</span></p>
                     </div>
                 </div>
             </div>
@@ -1067,13 +1085,18 @@ else:
             unsafe_allow_html=True,
         )
 
-        # ─── FOOTER ───────────────────────────────────────────────────────────────────
+        # ─── FUN FOOTER ───────────────────────────────────────────────────────────────────
         st.markdown("---")
         st.markdown(
             """
-            <p style="text-align: center; color: #5A6A7A !important; font-size: 0.85rem;">
-                © 2025 MilkQu • Built with Streamlit & ❤️
-            </p>
+            <div style="text-align: center; padding: 16px;">
+                <p style="color: #FBBF24 !important; font-size: 1.1rem; margin-bottom: 8px;">
+                    🐄🐐🐑 Terima kasih sudah menggunakan MilkQu! 🐑🐐🐄
+                </p>
+                <p style="color: #6B7280 !important; font-size: 0.85rem;">
+                    © 2025 MilkQu • Made with 💚 for milk lovers
+                </p>
+            </div>
             """,
             unsafe_allow_html=True,
         )
@@ -1098,13 +1121,13 @@ else:
             """
             <div style="
                 text-align: center;
-                padding: 40px 20px;
+                padding: 20px 16px;
                 background: linear-gradient(135deg, rgba(74, 174, 217, 0.1) 0%, rgba(125, 211, 252, 0.05) 100%);
                 border-radius: 20px;
                 border: 1px solid rgba(74, 174, 217, 0.2);
-                margin-bottom: 30px;
+                margin-bottom: 16px;
             ">
-                <div style="font-size: 3rem; margin-bottom: 16px;">🧪</div>
+                <div style="font-size: 2rem; margin-bottom: 8px;">🧪</div>
                 <h1 style="
                     font-size: 2.5rem;
                     font-weight: 700;
@@ -1112,9 +1135,9 @@ else:
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     margin: 0;
-                ">Milk Quality Prediction</h1>
-                <p style="color: #B8C5D3 !important; font-size: 1.1rem; margin-top: 12px;">
-                    Enter milk parameters to predict quality grade
+                ">Prediksi Kualitas Susu</h1>
+                <p style="color: #B8C5D3 !important; font-size: 1rem; margin-top: 8px;">
+                    Masukkan parameter susu untuk melihat hasil prediksi kualitas
                 </p>
             </div>
             """,
@@ -1122,7 +1145,7 @@ else:
         )
 
         # ─── PARAMETER REFERENCE ────────────────────────────────────────────────────────
-        with st.expander("📋 Parameter Reference"):
+        with st.expander("📋 Panduan Parameter (klik untuk melihat)"):
             st.dataframe(default_milkqu_df, use_container_width=True)
             st.markdown(
                 """
@@ -1251,30 +1274,37 @@ else:
                 
                 # Check name is not empty
                 if not identity or identity.strip() == "":
-                    validation_errors.append("Name is required")
+                    validation_errors.append("⚠️ Nama wajib diisi!")
                 
-                # Type-safe validation for numeric fields
-                try:
-                    if not isinstance(ph, (int, float)) or ph < 0:
-                        validation_errors.append("pH must be a non-negative number")
-                    if not isinstance(temprature, (int, float)) or temprature < 0:
-                        validation_errors.append("Temperature must be a non-negative number")
-                    if not isinstance(colour, (int, float)) or colour < 0:
-                        validation_errors.append("Colour must be a non-negative number")
-                    if taste not in [0, 1]:
-                        validation_errors.append("Taste must be 0 or 1")
-                    if odor not in [0, 1]:
-                        validation_errors.append("Odor must be 0 or 1")
-                    if fat not in [0, 1]:
-                        validation_errors.append("Fat must be 0 or 1")
-                    if turbidity not in [0, 1]:
-                        validation_errors.append("Turbidity must be 0 or 1")
-                except TypeError:
-                    validation_errors.append("All fields must be valid numbers")
+                # Check if ALL parameters are at default (0)
+                all_params_zero = (
+                    ph == 0.0 and 
+                    temprature == 0 and 
+                    colour == 0 and 
+                    taste == 0 and 
+                    odor == 0 and 
+                    fat == 0 and 
+                    turbidity == 0
+                )
+                
+                if all_params_zero:
+                    validation_errors.append("⚠️ Anda wajib mengisi minimal satu parameter susu (pH, Temperature, dll)!")
+                
+                # Type-safe validation for numeric fields (only if not all zero)
+                if not all_params_zero:
+                    try:
+                        if not isinstance(ph, (int, float)) or ph < 0:
+                            validation_errors.append("pH harus angka positif")
+                        if not isinstance(temprature, (int, float)) or temprature < 0:
+                            validation_errors.append("Temperature harus angka positif")
+                        if not isinstance(colour, (int, float)) or colour < 0:
+                            validation_errors.append("Colour harus angka positif")
+                    except TypeError:
+                        validation_errors.append("Semua field harus berupa angka yang valid")
                 
                 if validation_errors:
                     for error in validation_errors:
-                        st.error(f"❌ {error}")
+                        st.warning(error)
                 else:
                     st.session_state["milkqu_answer_state"] = identity.strip()
 
@@ -1391,13 +1421,13 @@ else:
             """
             <div style="
                 text-align: center;
-                padding: 40px 20px;
+                padding: 20px 16px;
                 background: linear-gradient(135deg, rgba(74, 174, 217, 0.1) 0%, rgba(125, 211, 252, 0.05) 100%);
                 border-radius: 20px;
                 border: 1px solid rgba(74, 174, 217, 0.2);
-                margin-bottom: 30px;
+                margin-bottom: 16px;
             ">
-                <div style="font-size: 3rem; margin-bottom: 16px;">📈</div>
+                <div style="font-size: 2rem; margin-bottom: 8px;">📈</div>
                 <h1 style="
                     font-size: 2.5rem;
                     font-weight: 700;
@@ -1405,9 +1435,9 @@ else:
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
                     margin: 0;
-                ">Prediction History</h1>
-                <p style="color: #B8C5D3 !important; font-size: 1.1rem; margin-top: 12px;">
-                    View and analyze your milk quality predictions
+                ">Riwayat Prediksi</h1>
+                <p style="color: #B8C5D3 !important; font-size: 1rem; margin-top: 8px;">
+                    Lihat dan analisis hasil prediksi kualitas susu Anda
                 </p>
             </div>
             """,
